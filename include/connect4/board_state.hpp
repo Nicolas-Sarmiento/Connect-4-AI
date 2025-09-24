@@ -9,6 +9,7 @@
 constexpr short PLAYER_EMPTY = 0;
 constexpr short PLAYER_A = 1;
 constexpr short PLAYER_B = 2;
+constexpr short TIE = 3;
 constexpr short LINE = 4;
 
 
@@ -30,7 +31,10 @@ struct BoardState{
 
     bool match(short p, int r, int c, int dr, int dc, int line_length); 
 
+    void reset();
+
     std::string board_to_str(); // Don't print it there, just generate the string.
+
 };
 
 

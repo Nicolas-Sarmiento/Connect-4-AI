@@ -75,3 +75,10 @@ std::string BoardState::board_to_str() {
     }
     return s;
 }
+
+
+void BoardState::reset(){
+    for( int i = 0; i < this->board.size(); i++ ){
+        this->board[i] = PLAYER_EMPTY;
+    }
+}

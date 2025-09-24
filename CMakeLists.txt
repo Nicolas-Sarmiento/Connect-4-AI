@@ -1,23 +1,38 @@
-
 cmake_minimum_required(VERSION 3.10)
+
+
 project(Connect4Game CXX)
 
 
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 
-add_library(board_logic 
+find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
+
+add_library(board_logic
     src/board/board_state.cpp
+    src/board/board_utils.cpp
     src/agent/agent.cpp
-    src/heuristics/heuristics.cpp
-    )
+    src/game/tui.cpp
+    src/game/gui.cpp
+
+)
+
+
+target_link_libraries(board_logic
+    PUBLIC
+        sfml-graphics
+        sfml-window
+        sfml-system
+)
 
 
 target_include_directories(board_logic
-    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
+    PUBLIC
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
-
 
 
 add_executable(connect4 src/main.cpp)
@@ -25,14 +40,8 @@ add_executable(connect4 src/main.cpp)
 
 target_link_libraries(connect4 PRIVATE board_logic)
 
-
-
+# --- TESTING SETUP ---
 enable_testing()
-
-
 add_executable(run_tests test/test_board_state.cpp)
-
-
 target_link_libraries(run_tests PRIVATE board_logic)
-
 add_test(NAME BoardStateTests COMMAND run_tests)

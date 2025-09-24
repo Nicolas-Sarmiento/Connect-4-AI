@@ -16,11 +16,11 @@ struct Agent {
     
     Agent( Player player, Weights heuristic_weights );
     
-    int find_best_move( BoardState state, int depth );
+    int find_best_move( BoardState& state, int depth );
 
     int eval_state( BoardState state, short player );
 
-    int alphabeta(BoardState state, int depth, int alpha, int beta, bool isMax);
+    int alphabeta(BoardState& state, int depth, int alpha, int beta, bool isMax);
 
 
 };
